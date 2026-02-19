@@ -1,0 +1,26 @@
+﻿@model List<Esoteric.Models.Player>
+@{
+	ViewData["Title"] = "Player";
+}
+<h3>Esoteric leaderboards</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Wood</th>
+			<th>Gold</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var player in Model)
+		{
+			<tr>
+				<td>@player.Id</td>
+				<td>@player.Player_Nick</td>
+				<td>@player.Currency_Wood</td>
+				<td>@player.Currency_Gold</td>
+			</tr>
+		}
+	</tbody>
+</table>
