@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Esoteric.Controllers
 {
+    [ApiController]
+    [Route("Leaderboards")]
     public class LeaderboardsController : Controller
     {
         private readonly EsotericContext _context;
@@ -14,10 +16,21 @@ namespace Esoteric.Controllers
         {
             _context = context;
         }
+        [HttpGet("Player")]
         public async Task<IActionResult> Player()
         {
             var player = await _context.Players.ToListAsync();
             return View(player);
         }
+
+        [HttpPost("PlayerAdd")]
+        public async Task<IActionResult> PlayerAdd([FromBody] Player player)
+        {
+            _context.Players.Add(player);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Player received successfully" });
+        }
+        
     }
 }
