@@ -9,6 +9,17 @@ builder.Services.AddDbContext<EsotericContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowWebGL",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +32,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseCors("AllowWebGL");
 
 app.UseAuthorization();
 
